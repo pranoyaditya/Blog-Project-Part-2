@@ -1,6 +1,6 @@
 from django import forms 
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm, PasswordChangeForm
 
 class RegisterForm(UserCreationForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'id':'required'}))
@@ -20,3 +20,8 @@ class ChangeUserDataForm(UserChangeForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
+
+class ChangePassWordForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = '__all__'
