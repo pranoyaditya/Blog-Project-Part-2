@@ -40,6 +40,10 @@ def user_logout(request):
     return redirect('user_login')
 
 @login_required
+def profile(request):
+    return render(request, 'author/profile.html')
+
+@login_required
 def user_profile_update(request):
     form = ChangeUserDataForm(instance = request.user)
     if request.method == 'POST':
@@ -48,7 +52,7 @@ def user_profile_update(request):
             form.save()
             messages.success(request, 'Profile updated successfully')
             return redirect('profile')
-    return render(request, 'author/profile.html', {'form' : form})
+    return render(request, 'author/update_profile.html', {'form' : form})
 
 @login_required
 def password_change(request):
