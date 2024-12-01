@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from .forms import RegisterForm,UserLoginForm
+from .forms import RegisterForm,UserLoginForm,ChangeUserDataForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def register(request):
@@ -24,7 +25,7 @@ def user_login(request):
             if user is not None:
                 login(request,user)
                 messages.success(request, 'Logged in successfully.')
-                return redirect('user_login')
+                return redirect('profile')
             else:
                 messages.warning(request, "Login information incorrect.")
                 return redirect('register')
@@ -37,3 +38,14 @@ def user_logout(request):
         logout(request)
         return redirect('homePage')
     return redirect('user_login')
+
+@login_required
+def user_profile_update(request):
+    form = ChangeUserDataForm(instance = request.user)
+    if request.method == 'POST':
+        form = ChangeUserDataForm(request.POST, instance = request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('profile')
+    return render(request, 'author/profile.html', {'form' : form})
