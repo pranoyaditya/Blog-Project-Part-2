@@ -22,7 +22,7 @@
                 <a class="nav-link text-white" aria-current="page" href="{% url 'homePage' %}">Home</a>
                 {% if user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Add post</a>
+                    <a class="nav-link text-white" href="{% url 'add_post' %}">Add post</a>
                   </li>
                 {% endif %}   
             </ul>
