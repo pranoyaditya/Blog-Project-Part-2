@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Post
 
 # Create your views here.
+@login_required
 def add_post(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
@@ -22,6 +23,7 @@ def edit_post(request,id):
     if request.method == 'POST':
         post_form = PostForm(request.POST, instance=post)
         if post_form.is_valid():
+            post_form.instance.author = request.user
             post_form.save()
             return redirect('homePage')
     return render(request, 'posts/postPage.html', {'form': post_form})

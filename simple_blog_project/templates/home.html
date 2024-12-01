@@ -17,9 +17,7 @@
                         {% for categs in posts.category.all %}
                         <button class="btn btn-info btn-sm disabled m-3">{{ categs }}</button>
                         {% endfor %}
-                        
-                        <a href="{% url 'edit_post' posts.id %}" class="btn btn-warning m-3">Edit</a>
-                        <a href="{% url 'delete_post' posts.id %}" class="btn btn-danger m-3">Delete</a>
+                    
                     </div>
                 </div>
             </div>
